@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diagramme de Flux (Swimlane)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8fafc; /* slate-50 */
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+        .diagram-wrapper {
+            background-color: #ffffff;
+            border-radius: 1rem;
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            border: 1px solid #e2e8f0;
+            padding: 2.5rem;
+            width: 100%;
+            max-width: 1200px;
+        }
+        .swimlane {
+            flex: 1;
+            padding: 1rem;
+            border-right: 2px solid #e2e8f0;
+        }
+        .swimlane:last-child {
+            border-right: none;
+        }
+        .swimlane-header {
+            text-align: center;
+            font-size: 1.125rem; /* text-lg */
+            font-weight: 700; /* font-bold */
+            color: #1e293b; /* slate-800 */
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #e2e8f0;
+            margin-bottom: 1.5rem;
+        }
+        .process-box {
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.5rem;
+            padding: 0.75rem 1rem;
+            text-align: center;
+            font-weight: 500;
+            color: #334155;
+            box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+        .decision-box {
+            background-color: #fef3c7; /* amber-100 */
+            border: 1px solid #fcd34d; /* amber-300 */
+            color: #92400e; /* amber-800 */
+            transform: rotate(45deg);
+            width: 120px;
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 3rem auto;
+        }
+        .decision-box-text {
+            transform: rotate(-45deg);
+            text-align: center;
+            font-weight: 600;
+        }
+        .arrow {
+            text-align: center;
+            font-size: 1.5rem;
+            color: #9ca3af; /* gray-400 */
+            margin-bottom: 1.5rem;
+        }
+        .arrow-label {
+            position: absolute;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #4b5563; /* gray-600 */
+            background-color: white;
+            padding: 0 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="diagram-wrapper">
+        <h2 class="text-3xl font-extrabold text-center text-slate-800 mb-12">Diagramme de Flux de Travail (Swimlane)</h2>
+        <div class="flex">
+            <!-- Lane: Utilisateur Externe -->
+            <div class="swimlane">
+                <div class="swimlane-header">Utilisateur Externe</div>
+                <div class="h-28"></div> <!-- Spacer -->
+                <div class="process-box">1. Poser une question<br>(Arabe, Français, Anglais)</div>
+                <div class="arrow">↓</div>
+                <div class="h-96"></div> <!-- Spacer -->
+                <div class="h-48"></div> <!-- Spacer -->
+                 <div class="process-box">7. Recevoir la réponse</div>
+                <div class="arrow">↓</div>
+                <div class="relative w-full flex justify-center">
+                    <div class="decision-box">
+                        <div class="decision-box-text">Autres<br>Questions?</div>
+                    </div>
+                    <div class="arrow-label" style="top: 50px; right: -10px;">Non</div>
+                    <div class="arrow-label" style="bottom: -20px; left: 50%; transform: translateX(-50%);">Oui</div>
+                </div>
+                 <div class="arrow" style="transform: rotate(90deg); margin-top: -1.5rem; margin-bottom: 0;">→</div>
+                 <div class="process-box" style="margin-top: 2rem;">Fin de la conversation</div>
+            </div>
+
+            <!-- Lane: Système (Chatbot) -->
+            <div class="swimlane">
+                <div class="swimlane-header">Système (Chatbot ENIAD AI)</div>
+                <div class="h-28"></div> <!-- Spacer -->
+                <div class="arrow">↓</div>
+                <div class="process-box">2. Prétraitement Multilingue<br>(Langue, Dialecte)</div>
+                <div class="arrow">↓</div>
+                <div class="relative w-full flex justify-center">
+                    <div class="decision-box">
+                        <div class="decision-box-text">Classification<br>de la Requête</div>
+                    </div>
+                    <div class="arrow-label" style="top: 50px; right: -20px;">Conversationnel</div>
+                    <div class="arrow-label" style="bottom: -20px; left: 50%; transform: translateX(-50%);">Factuel</div>
+                </div>
+                <div class="flex justify-between relative mt-[-1.5rem]">
+                    <div class="w-1/2 text-center arrow">↓</div>
+                    <div class="w-1/2 text-center arrow">↓</div>
+                </div>
+                <div class="flex justify-between">
+                    <div class="w-1/2 pr-2">
+                        <div class="process-box h-24 flex items-center justify-center">3a. **Chemin RAG**<br>Récupérer le contexte</div>
+                    </div>
+                    <div class="w-1/2 pl-2">
+                        <div class="process-box h-24 flex items-center justify-center">3b. **Chemin Direct**<br>Utiliser le LLM affiné</div>
+                    </div>
+                </div>
+                <div class="relative h-12">
+                     <svg class="absolute w-full h-full">
+                        <path d="M 25% 0 C 25% 30, 75% 30, 75% 0" stroke="#9ca3af" stroke-width="2" fill="none"/>
+                        <path d="M 50% 30 L 50% 48" stroke="#9ca3af" stroke-width="2" fill="none"/>
+                    </svg>
+                </div>
+                 <div class="arrow mt-[-0.5rem]">↓</div>
+                <div class="process-box">4. Synthèse de la Réponse<br>(Génération basée sur le contexte ou directe)</div>
+                <div class="arrow">↓</div>
+                <div class="process-box">5. Formatage de la Réponse Finale</div>
+                <div class="arrow">↓</div>
+                <div class="process-box">6. Envoyer la réponse à l'utilisateur</div>
+                <div class="h-96"></div> <!-- Spacer -->
+            </div>
+
+            <!-- Lane: Administrateur -->
+            <div class="swimlane">
+                <div class="swimlane-header">Administrateur</div>
+                 <div class="process-box">Définir et Mettre à Jour<br>la Base de Connaissance</div>
+                 <div class="h-96"></div> <!-- Spacer -->
+                 <div class="h-96"></div> <!-- Spacer -->
+                 <div class="h-48"></div> <!-- Spacer -->
+                 <div class="process-box">Consulter les Rapports et Analytiques<br>(Utilisation, Satisfaction)</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
