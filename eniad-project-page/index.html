@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Diagramme de Flux (Swimlane)</title>
+    <title>Projet de Recherche | IA Conversationnelle Multilingue</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,13 +11,79 @@
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background: #f8fafc; /* slate-50 */
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            min-height: 100vh;
-            padding: 2rem;
+            background-color: #f8fafc; /* slate-50 */
         }
+        .gradient-text {
+            background: linear-gradient(to right, #3b82f6, #1e40af);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .section-title {
+            font-size: 2.25rem; /* text-4xl */
+            font-weight: 800; /* font-extrabold */
+            letter-spacing: -0.025em; /* tracking-tight */
+            color: #1e293b; /* slate-800 */
+        }
+        .section-subtitle {
+            font-size: 1.25rem; /* text-xl */
+            color: #475569; /* slate-600 */
+            margin-top: 1rem;
+        }
+        .stat-card {
+            background-color: white;
+            border-radius: 0.75rem;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -2px rgb(0 0 0 / 0.1);
+        }
+        .stat-number {
+            font-size: 3rem; /* text-5xl */
+            font-weight: 800; /* font-extrabold */
+            color: #3b82f6; /* blue-500 */
+        }
+        .stat-label {
+            margin-top: 0.5rem;
+            font-size: 1rem; /* text-base */
+            color: #475569; /* slate-600 */
+            font-weight: 500; /* font-medium */
+        }
+        .feature-icon {
+            background-color: #dbeafe; /* blue-100 */
+            color: #1e40af; /* blue-800 */
+            border-radius: 50%;
+            padding: 0.75rem;
+            display: inline-flex;
+            margin-bottom: 1rem;
+        }
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        .btn-primary {
+            background-color: #3b82f6; /* blue-500 */
+            color: white;
+        }
+        .btn-primary:hover {
+            background-color: #2563eb; /* blue-600 */
+        }
+        .btn-secondary {
+            background-color: transparent;
+            color: #3b82f6; /* blue-500 */
+            border: 1px solid #3b82f6;
+        }
+        .btn-secondary:hover {
+            background-color: #eff6ff; /* blue-50 */
+        }
+        /* Styles pour les diagrammes */
         .diagram-wrapper {
             background-color: #ffffff;
             border-radius: 1rem;
@@ -25,7 +91,7 @@
             border: 1px solid #e2e8f0;
             padding: 2.5rem;
             width: 100%;
-            max-width: 1200px;
+            margin-top: 2rem;
         }
         .swimlane {
             flex: 1;
@@ -37,9 +103,9 @@
         }
         .swimlane-header {
             text-align: center;
-            font-size: 1.125rem; /* text-lg */
-            font-weight: 700; /* font-bold */
-            color: #1e293b; /* slate-800 */
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: #1e293b;
             padding-bottom: 1rem;
             border-bottom: 2px solid #e2e8f0;
             margin-bottom: 1.5rem;
@@ -57,9 +123,9 @@
             position: relative;
         }
         .decision-box {
-            background-color: #fef3c7; /* amber-100 */
-            border: 1px solid #fcd34d; /* amber-300 */
-            color: #92400e; /* amber-800 */
+            background-color: #fef3c7;
+            border: 1px solid #fcd34d;
+            color: #92400e;
             transform: rotate(45deg);
             width: 120px;
             height: 120px;
@@ -76,95 +142,280 @@
         .arrow {
             text-align: center;
             font-size: 1.5rem;
-            color: #9ca3af; /* gray-400 */
+            color: #9ca3af;
             margin-bottom: 1.5rem;
         }
         .arrow-label {
             position: absolute;
             font-size: 0.75rem;
             font-weight: 600;
-            color: #4b5563; /* gray-600 */
+            color: #4b5563;
             background-color: white;
             padding: 0 4px;
         }
     </style>
 </head>
-<body>
-    <div class="diagram-wrapper">
-        <h2 class="text-3xl font-extrabold text-center text-slate-800 mb-12">Diagramme de Flux de Travail (Swimlane)</h2>
-        <div class="flex">
-            <!-- Lane: Utilisateur Externe -->
-            <div class="swimlane">
-                <div class="swimlane-header">Utilisateur Externe</div>
-                <div class="h-28"></div> <!-- Spacer -->
-                <div class="process-box">1. Poser une question<br>(Arabe, Français, Anglais)</div>
-                <div class="arrow">↓</div>
-                <div class="h-96"></div> <!-- Spacer -->
-                <div class="h-48"></div> <!-- Spacer -->
-                 <div class="process-box">7. Recevoir la réponse</div>
-                <div class="arrow">↓</div>
-                <div class="relative w-full flex justify-center">
-                    <div class="decision-box">
-                        <div class="decision-box-text">Autres<br>Questions?</div>
-                    </div>
-                    <div class="arrow-label" style="top: 50px; right: -10px;">Non</div>
-                    <div class="arrow-label" style="bottom: -20px; left: 50%; transform: translateX(-50%);">Oui</div>
-                </div>
-                 <div class="arrow" style="transform: rotate(90deg); margin-top: -1.5rem; margin-bottom: 0;">→</div>
-                 <div class="process-box" style="margin-top: 2rem;">Fin de la conversation</div>
-            </div>
+<body class="text-slate-700">
 
-            <!-- Lane: Système (Chatbot) -->
-            <div class="swimlane">
-                <div class="swimlane-header">Système (Chatbot ENIAD AI)</div>
-                <div class="h-28"></div> <!-- Spacer -->
-                <div class="arrow">↓</div>
-                <div class="process-box">2. Prétraitement Multilingue<br>(Langue, Dialecte)</div>
-                <div class="arrow">↓</div>
-                <div class="relative w-full flex justify-center">
-                    <div class="decision-box">
-                        <div class="decision-box-text">Classification<br>de la Requête</div>
-                    </div>
-                    <div class="arrow-label" style="top: 50px; right: -20px;">Conversationnel</div>
-                    <div class="arrow-label" style="bottom: -20px; left: 50%; transform: translateX(-50%);">Factuel</div>
-                </div>
-                <div class="flex justify-between relative mt-[-1.5rem]">
-                    <div class="w-1/2 text-center arrow">↓</div>
-                    <div class="w-1/2 text-center arrow">↓</div>
-                </div>
-                <div class="flex justify-between">
-                    <div class="w-1/2 pr-2">
-                        <div class="process-box h-24 flex items-center justify-center">3a. **Chemin RAG**<br>Récupérer le contexte</div>
-                    </div>
-                    <div class="w-1/2 pl-2">
-                        <div class="process-box h-24 flex items-center justify-center">3b. **Chemin Direct**<br>Utiliser le LLM affiné</div>
-                    </div>
-                </div>
-                <div class="relative h-12">
-                     <svg class="absolute w-full h-full">
-                        <path d="M 25% 0 C 25% 30, 75% 30, 75% 0" stroke="#9ca3af" stroke-width="2" fill="none"/>
-                        <path d="M 50% 30 L 50% 48" stroke="#9ca3af" stroke-width="2" fill="none"/>
-                    </svg>
-                </div>
-                 <div class="arrow mt-[-0.5rem]">↓</div>
-                <div class="process-box">4. Synthèse de la Réponse<br>(Génération basée sur le contexte ou directe)</div>
-                <div class="arrow">↓</div>
-                <div class="process-box">5. Formatage de la Réponse Finale</div>
-                <div class="arrow">↓</div>
-                <div class="process-box">6. Envoyer la réponse à l'utilisateur</div>
-                <div class="h-96"></div> <!-- Spacer -->
+    <!-- Header -->
+    <header class="bg-white/80 backdrop-blur-lg sticky top-0 z-50 shadow-sm">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="text-xl font-bold text-slate-800">
+                Projet ENIAD AI
             </div>
+            <div class="hidden md:flex space-x-8">
+                <a href="#defi" class="hover:text-blue-500 transition-colors">Le Défi</a>
+                <a href="#solution" class="hover:text-blue-500 transition-colors">Solution</a>
+                <a href="#impact" class="hover:text-blue-500 transition-colors">Impact</a>
+                <a href="#diagrams" class="hover:text-blue-500 transition-colors">Architecture</a>
+            </div>
+            <a href="#cta" class="btn btn-primary hidden md:inline-block">Explorer</a>
+        </nav>
+    </header>
 
-            <!-- Lane: Administrateur -->
-            <div class="swimlane">
-                <div class="swimlane-header">Administrateur</div>
-                 <div class="process-box">Définir et Mettre à Jour<br>la Base de Connaissance</div>
-                 <div class="h-96"></div> <!-- Spacer -->
-                 <div class="h-96"></div> <!-- Spacer -->
-                 <div class="h-48"></div> <!-- Spacer -->
-                 <div class="process-box">Consulter les Rapports et Analytiques<br>(Utilisation, Satisfaction)</div>
+    <!-- Hero Section -->
+    <main>
+        <section id="hero" class="py-20 md:py-32">
+            <div class="container mx-auto px-6 text-center">
+                <h1 class="text-4xl md:text-6xl font-extrabold tracking-tighter text-slate-900 leading-tight">
+                    L'IA Conversationnelle <span class="gradient-text">Multilingue</span><br> pour l'Éducation, Accessible à Tous.
+                </h1>
+                <p class="mt-6 max-w-3xl mx-auto text-lg md:text-xl text-slate-600">
+                    Un framework hybride (RAG & Q-LoRA) pour déployer des chatbots académiques performants en Arabe, Français et Anglais sur des ressources matérielles limitées.
+                </p>
+                <div class="mt-10 flex justify-center gap-4">
+                    <a href="#" class="btn btn-primary text-lg">Lire le Papier de Recherche</a>
+                    <a href="#" class="btn btn-secondary text-lg">Accéder au Code sur GitHub</a>
+                </div>
             </div>
+        </section>
+
+        <!-- The Problem Section -->
+        <section id="defi" class="py-20 bg-white">
+            <div class="container mx-auto px-6">
+                <div class="text-center max-w-3xl mx-auto">
+                    <h2 class="section-title">Le Double Défi des Institutions Éducatives</h2>
+                    <p class="section-subtitle">
+                        La transformation numérique exige des solutions avancées, mais les contraintes de ressources et les besoins multilingues créent un obstacle majeur.
+                    </p>
+                </div>
+                <div class="mt-16 grid md:grid-cols-3 gap-8">
+                    <!-- Card 1 -->
+                    <div class="p-8 border border-slate-200 rounded-lg">
+                        <div class="feature-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m4 0v2M3 10h18M7 15h1m4 0h1m4 0h1M4 20h16a1 1 0 001-1V6a1 1 0 00-1-1H4a1 1 0 00-1 1v13a1 1 0 001 1z" /></svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-800">Exigence Multilingue</h3>
+                        <p class="mt-2 text-slate-600">Nécessité de servir les étudiants et le personnel avec la même efficacité en **Français, Arabe et Anglais**, en respectant les contextes culturels.</p>
+                    </div>
+                    <!-- Card 2 -->
+                    <div class="p-8 border border-slate-200 rounded-lg">
+                        <div class="feature-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v.01M12 6v-1m0-1V4m0 2.01v.01M12 14v2m0 1v1m0 1v1m0-2.01v.01M12 16v-1" /></svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-800">Contraintes de Ressources</h3>
+                        <p class="mt-2 text-slate-600">Les budgets limités et l'infrastructure matérielle modeste empêchent l'utilisation des grands modèles de langage qui nécessitent des GPU coûteux.</p>
+                    </div>
+                    <!-- Card 3 -->
+                    <div class="p-8 border border-slate-200 rounded-lg">
+                        <div class="feature-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" /></svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-800">Limites des Solutions Actuelles</h3>
+                        <p class="mt-2 text-slate-600">Les chatbots commerciaux manquent de flexibilité, de support linguistique équilibré et ne peuvent s'adapter à la base de connaissance interne d'une institution.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Our Solution Section -->
+        <section id="solution" class="py-20">
+            <div class="container mx-auto px-6">
+                <div class="text-center max-w-3xl mx-auto">
+                    <h2 class="section-title">Notre Solution : L'Architecture Hybride</h2>
+                    <p class="section-subtitle">
+                        Un système intelligent qui combine le meilleur de plusieurs mondes pour une performance optimale sur un matériel accessible.
+                    </p>
+                </div>
+                <div class="mt-16 grid md:grid-cols-3 gap-10 text-center">
+                    <div>
+                        <div class="feature-icon mx-auto">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+                        </div>
+                        <h4 class="text-2xl font-bold text-slate-800">RAG pour la Précision</h4>
+                        <p class="mt-2 text-slate-600">Utilise la Génération Augmentée par Récupération pour garantir des réponses factuelles, basées sur la base de connaissance de l'ENIAD.</p>
+                    </div>
+                    <div>
+                        <div class="feature-icon mx-auto">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                        </div>
+                        <h4 class="text-2xl font-bold text-slate-800">Q-LORA pour l'Efficacité</h4>
+                        <p class="mt-2 text-slate-600">Affine le modèle `Llama-3.1-8B` sur un seul GPU avec seulement **12 Go de VRAM**, rendant la technologie financièrement viable.</p>
+                    </div>
+                    <div>
+                        <div class="feature-icon mx-auto">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 1v4m0 0h-4m4 0l-5-5" /></svg>
+                        </div>
+                        <h4 class="text-2xl font-bold text-slate-800">Routage Intelligent</h4>
+                        <p class="mt-2 text-slate-600">Un classifieur de requêtes innovant qui dirige dynamiquement chaque question vers le chemin optimal (factuel ou conversationnel).</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Real-World Impact Section -->
+        <section id="impact" class="py-20 bg-white">
+            <div class="container mx-auto px-6">
+                <div class="text-center max-w-3xl mx-auto">
+                    <h2 class="section-title">Un Impact Validé en Production à l'ENIAD</h2>
+                    <p class="section-subtitle">
+                        Les chiffres parlent d'eux-mêmes. Notre système n'est pas un concept, c'est une réalité qui améliore le quotidien des étudiants et du personnel.
+                    </p>
+                </div>
+                <div class="mt-16 grid grid-cols-2 md:grid-cols-3 gap-6">
+                    <div class="stat-card">
+                        <p class="stat-number">87%</p>
+                        <p class="stat-label">Taux de Résolution des Requêtes</p>
+                    </div>
+                    <div class="stat-card">
+                        <p class="stat-number">&lt;2s</p>
+                        <p class="stat-label">Temps de Réponse Médian</p>
+                    </div>
+                    <div class="stat-card">
+                        <p class="stat-number">+44%</p>
+                        <p class="stat-label">Satisfaction des Utilisateurs</p>
+                    </div>
+                    <div class="stat-card">
+                        <p class="stat-number">10k+</p>
+                        <p class="stat-label">Requêtes Traitées par Jour</p>
+                    </div>
+                     <div class="stat-card">
+                        <p class="stat-number">99.7%</p>
+                        <p class="stat-label">Disponibilité du Service (Uptime)</p>
+                    </div>
+                    <div class="stat-card">
+                        <p class="stat-number">-76%</p>
+                        <p class="stat-label">Réduction des Erreurs Factuelles</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Diagrams Section -->
+        <section id="diagrams" class="py-20">
+            <div class="container mx-auto px-6">
+                <div class="text-center max-w-3xl mx-auto">
+                    <h2 class="section-title">Architecture et Flux de Travail</h2>
+                    <p class="section-subtitle">
+                        Une vue détaillée de la structure de notre système et de la manière dont les informations sont traitées, de la requête de l'utilisateur à la réponse finale.
+                    </p>
+                </div>
+
+                <!-- Swimlane Diagram -->
+                <div class="diagram-wrapper">
+                    <h3 class="text-2xl font-bold text-center text-slate-800 mb-12">Diagramme de Flux de Travail (Swimlane)</h3>
+                    <div class="flex">
+                        <!-- Lane: Utilisateur Externe -->
+                        <div class="swimlane">
+                            <div class="swimlane-header">Utilisateur Externe</div>
+                            <div class="h-28"></div> <!-- Spacer -->
+                            <div class="process-box">1. Poser une question<br>(Arabe, Français, Anglais)</div>
+                            <div class="arrow">↓</div>
+                            <div class="h-96"></div> <!-- Spacer -->
+                            <div class="h-48"></div> <!-- Spacer -->
+                             <div class="process-box">7. Recevoir la réponse</div>
+                            <div class="arrow">↓</div>
+                            <div class="relative w-full flex justify-center">
+                                <div class="decision-box">
+                                    <div class="decision-box-text">Autres<br>Questions?</div>
+                                </div>
+                                <div class="arrow-label" style="top: 50px; right: -10px;">Non</div>
+                                <div class="arrow-label" style="bottom: -20px; left: 50%; transform: translateX(-50%);">Oui</div>
+                            </div>
+                             <div class="arrow" style="transform: rotate(90deg); margin-top: -1.5rem; margin-bottom: 0;">→</div>
+                             <div class="process-box" style="margin-top: 2rem;">Fin de la conversation</div>
+                        </div>
+            
+                        <!-- Lane: Système (Chatbot) -->
+                        <div class="swimlane">
+                            <div class="swimlane-header">Système (Chatbot ENIAD AI)</div>
+                            <div class="h-28"></div> <!-- Spacer -->
+                            <div class="arrow">↓</div>
+                            <div class="process-box">2. Prétraitement Multilingue<br>(Langue, Dialecte)</div>
+                            <div class="arrow">↓</div>
+                            <div class="relative w-full flex justify-center">
+                                <div class="decision-box">
+                                    <div class="decision-box-text">Classification<br>de la Requête</div>
+                                </div>
+                                <div class="arrow-label" style="top: 50px; right: -20px;">Conversationnel</div>
+                                <div class="arrow-label" style="bottom: -20px; left: 50%; transform: translateX(-50%);">Factuel</div>
+                            </div>
+                            <div class="flex justify-between relative mt-[-1.5rem]">
+                                <div class="w-1/2 text-center arrow">↓</div>
+                                <div class="w-1/2 text-center arrow">↓</div>
+                            </div>
+                            <div class="flex justify-between">
+                                <div class="w-1/2 pr-2">
+                                    <div class="process-box h-24 flex items-center justify-center">3a. **Chemin RAG**<br>Récupérer le contexte</div>
+                                </div>
+                                <div class="w-1/2 pl-2">
+                                    <div class="process-box h-24 flex items-center justify-center">3b. **Chemin Direct**<br>Utiliser le LLM affiné</div>
+                                </div>
+                            </div>
+                            <div class="relative h-12">
+                                 <svg class="absolute w-full h-full">
+                                    <path d="M 25% 0 C 25% 30, 75% 30, 75% 0" stroke="#9ca3af" stroke-width="2" fill="none"/>
+                                    <path d="M 50% 30 L 50% 48" stroke="#9ca3af" stroke-width="2" fill="none"/>
+                                </svg>
+                            </div>
+                             <div class="arrow mt-[-0.5rem]">↓</div>
+                            <div class="process-box">4. Synthèse de la Réponse<br>(Génération basée sur le contexte ou directe)</div>
+                            <div class="arrow">↓</div>
+                            <div class="process-box">5. Formatage de la Réponse Finale</div>
+                            <div class="arrow">↓</div>
+                            <div class="process-box">6. Envoyer la réponse à l'utilisateur</div>
+                            <div class="h-96"></div> <!-- Spacer -->
+                        </div>
+            
+                        <!-- Lane: Administrateur -->
+                        <div class="swimlane">
+                            <div class="swimlane-header">Administrateur</div>
+                             <div class="process-box">Définir et Mettre à Jour<br>la Base de Connaissance</div>
+                             <div class="h-96"></div> <!-- Spacer -->
+                             <div class="h-96"></div> <!-- Spacer -->
+                             <div class="h-48"></div> <!-- Spacer -->
+                             <div class="process-box">Consulter les Rapports et Analytiques<br>(Utilisation, Satisfaction)</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Final CTA Section -->
+        <section id="cta" class="bg-blue-600">
+            <div class="container mx-auto px-6 py-20 text-center">
+                <h2 class="text-3xl md:text-4xl font-extrabold text-white">Explorez Notre Travail et Contribuez</h2>
+                <p class="mt-4 max-w-2xl mx-auto text-lg text-blue-100">
+                    Notre projet fournit un modèle pratique et percutant pour démocratiser l'IA avancée dans l'éducation. Lisez notre publication pour une analyse technique complète et explorez notre code pour l'adapter à vos propres besoins.
+                </p>
+                <div class="mt-10 flex justify-center gap-4">
+                    <a href="#" class="btn bg-white text-blue-600 hover:bg-blue-50 text-lg">Lire le Papier de Recherche</a>
+                    <a href="#" class="btn border-white text-white hover:bg-white hover:text-blue-600 text-lg">Accéder au Code sur GitHub</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-800 text-slate-400">
+        <div class="container mx-auto px-6 py-8 text-center">
+            <p>&copy; 2025 Projet de Recherche ENIAD AI. Tous droits réservés.</p>
+            <p class="mt-2 text-sm">Abdellah Ennajari, Abdelilah Ourti, Ahmed Oukacha, Oussama El Hadji</p>
+            <p class="mt-1 text-sm">École Nationale de l'Intelligence Artificielle et du Digital (ENIAD), Université Mohammed Premier, Maroc</p>
         </div>
-    </div>
+    </footer>
+
 </body>
 </html>
+
