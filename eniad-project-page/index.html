@@ -92,11 +92,13 @@
             padding: 2.5rem;
             width: 100%;
             margin-top: 2rem;
+            overflow-x: auto;
         }
         .swimlane {
             flex: 1;
             padding: 1rem;
             border-right: 2px solid #e2e8f0;
+            min-width: 300px;
         }
         .swimlane:last-child {
             border-right: none;
@@ -169,7 +171,7 @@
                 <a href="#impact" class="hover:text-blue-500 transition-colors">Impact</a>
                 <a href="#diagrams" class="hover:text-blue-500 transition-colors">Architecture</a>
             </div>
-            <a href="#cta" class="btn btn-primary hidden md:inline-block">Explorer</a>
+            <a href="https://projet-fin-ann-e.vercel.app/" class="btn btn-primary hidden md:inline-block">Explorer</a>
         </nav>
     </header>
 
@@ -184,8 +186,8 @@
                     Un framework hybride (RAG & Q-LoRA) pour déployer des chatbots académiques performants en Arabe, Français et Anglais sur des ressources matérielles limitées.
                 </p>
                 <div class="mt-10 flex justify-center gap-4">
-                    <a href="#" class="btn btn-primary text-lg">Lire le Papier de Recherche</a>
-                    <a href="#" class="btn btn-secondary text-lg">Accéder au Code sur GitHub</a>
+                    <a href="https://drive.google.com/file/d/1VJ20knljQPZEhZyBf2kc2Qj9uCX87gGp/view?usp=sharing" download="Multilingual_AI_Research_Paper_ENIAD.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-primary text-lg">Lire le Papier de Recherche</a>
+                    <a href="https://github.com/ennajari/ENIAD-ASSISTANT" target="_blank" rel="noopener noreferrer" class="btn btn-secondary text-lg">Accéder au Code sur GitHub</a>
                 </div>
             </div>
         </section>
@@ -314,15 +316,15 @@
                 <!-- Swimlane Diagram -->
                 <div class="diagram-wrapper">
                     <h3 class="text-2xl font-bold text-center text-slate-800 mb-12">Diagramme de Flux de Travail (Swimlane)</h3>
-                    <div class="flex">
+                    <div class="flex flex-col md:flex-row">
                         <!-- Lane: Utilisateur Externe -->
                         <div class="swimlane">
                             <div class="swimlane-header">Utilisateur Externe</div>
-                            <div class="h-28"></div> <!-- Spacer -->
+                            <div class="h-28 hidden md:block"></div> <!-- Spacer -->
                             <div class="process-box">1. Poser une question<br>(Arabe, Français, Anglais)</div>
                             <div class="arrow">↓</div>
-                            <div class="h-96"></div> <!-- Spacer -->
-                            <div class="h-48"></div> <!-- Spacer -->
+                            <div class="h-96 hidden md:block"></div> <!-- Spacer -->
+                            <div class="h-48 hidden md:block"></div> <!-- Spacer -->
                              <div class="process-box">7. Recevoir la réponse</div>
                             <div class="arrow">↓</div>
                             <div class="relative w-full flex justify-center">
@@ -332,14 +334,15 @@
                                 <div class="arrow-label" style="top: 50px; right: -10px;">Non</div>
                                 <div class="arrow-label" style="bottom: -20px; left: 50%; transform: translateX(-50%);">Oui</div>
                             </div>
-                             <div class="arrow" style="transform: rotate(90deg); margin-top: -1.5rem; margin-bottom: 0;">→</div>
+                             <div class="arrow md:hidden">↓</div>
+                             <div class="arrow hidden md:inline-block" style="transform: rotate(90deg); margin-top: -1.5rem; margin-bottom: 0;">→</div>
                              <div class="process-box" style="margin-top: 2rem;">Fin de la conversation</div>
                         </div>
             
                         <!-- Lane: Système (Chatbot) -->
                         <div class="swimlane">
                             <div class="swimlane-header">Système (Chatbot ENIAD AI)</div>
-                            <div class="h-28"></div> <!-- Spacer -->
+                            <div class="h-28 hidden md:block"></div> <!-- Spacer -->
                             <div class="arrow">↓</div>
                             <div class="process-box">2. Prétraitement Multilingue<br>(Langue, Dialecte)</div>
                             <div class="arrow">↓</div>
@@ -354,15 +357,15 @@
                                 <div class="w-1/2 text-center arrow">↓</div>
                                 <div class="w-1/2 text-center arrow">↓</div>
                             </div>
-                            <div class="flex justify-between">
-                                <div class="w-1/2 pr-2">
+                            <div class="flex flex-col md:flex-row justify-between">
+                                <div class="w-full md:w-1/2 md:pr-2">
                                     <div class="process-box h-24 flex items-center justify-center">3a. **Chemin RAG**<br>Récupérer le contexte</div>
                                 </div>
-                                <div class="w-1/2 pl-2">
+                                <div class="w-full md:w-1/2 md:pl-2 mt-6 md:mt-0">
                                     <div class="process-box h-24 flex items-center justify-center">3b. **Chemin Direct**<br>Utiliser le LLM affiné</div>
                                 </div>
                             </div>
-                            <div class="relative h-12">
+                            <div class="relative h-12 hidden md:block">
                                  <svg class="absolute w-full h-full">
                                     <path d="M 25% 0 C 25% 30, 75% 30, 75% 0" stroke="#9ca3af" stroke-width="2" fill="none"/>
                                     <path d="M 50% 30 L 50% 48" stroke="#9ca3af" stroke-width="2" fill="none"/>
@@ -374,16 +377,16 @@
                             <div class="process-box">5. Formatage de la Réponse Finale</div>
                             <div class="arrow">↓</div>
                             <div class="process-box">6. Envoyer la réponse à l'utilisateur</div>
-                            <div class="h-96"></div> <!-- Spacer -->
+                            <div class="h-96 hidden md:block"></div> <!-- Spacer -->
                         </div>
             
                         <!-- Lane: Administrateur -->
                         <div class="swimlane">
                             <div class="swimlane-header">Administrateur</div>
                              <div class="process-box">Définir et Mettre à Jour<br>la Base de Connaissance</div>
-                             <div class="h-96"></div> <!-- Spacer -->
-                             <div class="h-96"></div> <!-- Spacer -->
-                             <div class="h-48"></div> <!-- Spacer -->
+                             <div class="h-96 hidden md:block"></div> <!-- Spacer -->
+                             <div class="h-96 hidden md:block"></div> <!-- Spacer -->
+                             <div class="h-48 hidden md:block"></div> <!-- Spacer -->
                              <div class="process-box">Consulter les Rapports et Analytiques<br>(Utilisation, Satisfaction)</div>
                         </div>
                     </div>
@@ -400,8 +403,8 @@
                     Notre projet fournit un modèle pratique et percutant pour démocratiser l'IA avancée dans l'éducation. Lisez notre publication pour une analyse technique complète et explorez notre code pour l'adapter à vos propres besoins.
                 </p>
                 <div class="mt-10 flex justify-center gap-4">
-                    <a href="#" class="btn bg-white text-blue-600 hover:bg-blue-50 text-lg">Lire le Papier de Recherche</a>
-                    <a href="#" class="btn border-white text-white hover:bg-white hover:text-blue-600 text-lg">Accéder au Code sur GitHub</a>
+                    <a href="https://drive.google.com/file/d/1VJ20knljQPZEhZyBf2kc2Qj9uCX87gGp/view?usp=sharing" download="Multilingual_AI_Research_Paper_ENIAD.pdf" target="_blank" rel="noopener noreferrer" class="btn bg-white text-blue-600 hover:bg-blue-50 text-lg">Lire le Papier de Recherche</a>
+                    <a href="https://github.com/ennajari/ENIAD-ASSISTANT" target="_blank" rel="noopener noreferrer" class="btn border-white text-white hover:bg-white hover:text-blue-600 text-lg">Accéder au Code sur GitHub</a>
                 </div>
             </div>
         </section>
